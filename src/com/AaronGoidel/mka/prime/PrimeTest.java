@@ -4,8 +4,11 @@ package com.AaronGoidel.mka.prime;
  * Created by agoidel2019 on 1/6/17.
  */
 
-import java.math.BigInteger;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.File;
+import java.math.BigInteger;
+
 
 //Miller–Rabin Test
 public class PrimeTest
@@ -60,11 +63,36 @@ public class PrimeTest
         return true;
     }
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws FileNotFoundException
     {
-        Scanner in = new Scanner(System.in);
-        BigInteger num = in.nextBigInteger();
+        //Scanner in = new Scanner(System.in);
+        //BigInteger num = in.nextBigInteger();
 
+        File inputFile = new File("ListOfRandomIntegers.txt");
+        Scanner inFile;
+        inFile = new Scanner(inputFile);
+
+        long startTime = System.currentTimeMillis();
+
+        while(inFile.hasNextLong())
+        {
+            long next = inFile.nextLong();
+            BigInteger num = BigInteger.valueOf(next);
+            boolean answer = primeTest(num);
+
+            if (answer)
+            {
+                System.out.println(num + " is prime");
+            }else{
+                System.out.println(num + " is NOT prime");
+            }
+        }
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime);
+        System.out.println(duration + " milliseconds");
+
+
+/*
         long startTime = System.currentTimeMillis();
         boolean answer = primeTest(num);
         long endTime = System.currentTimeMillis();
@@ -77,6 +105,6 @@ public class PrimeTest
             System.out.println(num + " is NOT prime");
         }
 
-        System.out.println(duration + " milliseconds");
+        System.out.println(duration + " milliseconds");*/
     }
 }

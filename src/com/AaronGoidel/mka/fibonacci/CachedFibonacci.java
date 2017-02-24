@@ -67,6 +67,6 @@ public class CachedFibonacci
 
     public static void main(String[] args)
     {
-        fib(100);
+        fib(1500);
     }
 }

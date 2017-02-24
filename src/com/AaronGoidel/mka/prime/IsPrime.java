@@ -1,50 +1,62 @@
 package com.AaronGoidel.mka.prime;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * Created by agoidel2019 on 1/4/17.
+ * Created by agoidel2019 on 2/5/17.
  */
+
 public class IsPrime
 {
-    public static void main(String[] args)
+    private static long isPrime(long n)
     {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Enter number to test: ");
-        long num = in.nextLong();
-        System.out.println();
-
-        long startTime = System.currentTimeMillis();
-        boolean answer = isPrimeNum(num);
-        long endTime = System.currentTimeMillis();
-        long duration = (endTime - startTime);
-
-        if (answer)
+        if ((n > 2 && (n & 1) == 0))
         {
-            System.out.println(num + " is prime");
-        }else{
-            System.out.println(num + " is NOT prime");
+            return 2;
+        }
+        else if (n > 3 && (n % 3 == 0))
+        {
+            return 3;
         }
 
-        System.out.println(duration + " nano seconds");
-    }
-
-    public static boolean isPrimeNum(long n)
-    {
-        //test even
-        if(n > 2 && (n & 1) == 0)
+        int maxLookup = (int) Math.sqrt(n);
+        for (int i = 3; (i + 2) <= maxLookup; i = i + 6)
         {
-            return false;
-        }
-        //test odd up to n^0.5
-        for(int i = 3; i * i <= n; i += 2)
-        {
-            if (n % i == 0)
+            if (n % (i + 2) == 0 || n % (i + 4) == 0)
             {
-                return false;
+                return i + 2;
             }
         }
+        return 0;
+    }
 
-        return true;
+    public static void main(String[] args) throws FileNotFoundException
+    {
+        File inputFile = new File("ListOfRandomIntegers.txt");
+        Scanner inFile;
+        inFile = new Scanner(inputFile);
+
+        long startTime = System.currentTimeMillis();
+
+        while (inFile.hasNextLong())
+        {
+            long next = inFile.nextLong();
+            long answer = isPrime(next);
+
+            if (answer == 0)
+            {
+                System.out.println(next + " is prime");
+            } else
+            {
+                System.out.println(next + " is NOT prime and is a multiple of: " + answer);
+            }
+        }
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime);
+        System.out.println(duration + " milliseconds");
+
+
     }
 }
