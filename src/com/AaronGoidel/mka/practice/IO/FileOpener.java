@@ -1,4 +1,4 @@
-package com.AaronGoidel.mka.practice;
+package com.AaronGoidel.mka.practice.IO;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,7 +25,7 @@ public class FileOpener
 
         try
         {
-            Scanner readFile = new Scanner(file); // tries to read file 
+            Scanner readFile = new Scanner(file); // tries to read file
 
             while (readFile.hasNext()) // prints out file contents
             {
