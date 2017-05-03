@@ -19,6 +19,10 @@ public class ByteStreamPractice
         File outputFile = new File("data_out.dat");
         DataOutputStream outFile = new DataOutputStream(new FileOutputStream(outputFile));
 
+        PrintWriter z = new PrintWriter(System.out, true);
+
+
+
         long x = 0;
         long pos = 0;
         boolean end = false;
